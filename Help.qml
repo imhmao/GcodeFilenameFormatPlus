@@ -29,11 +29,11 @@ UM.Dialog
             text:
 "## Default filename format:
 
-    [abbr_machine] [brand] [material] lw [line_width]mm lh [layer_height]mm if [infill_sparse_density]% ext1 [material_print_temperature]C bed [material_bed_temperature]C
+    [8.3.2][base_name][profile_name][layer_height][material_bed_temperature]
 
 ## Example filename output:
 
-    PI3MK3M paperclip Generic PLA lw 0.4mm lh 0.2mm if 20% ext1 200C bed 60C.gcode
+    PIFI0465.g
 
 ## Usage
 1. Specify filename format using Extensions -> Gcode Filename Format Plus -> Edit Format
@@ -41,13 +41,16 @@ UM.Dialog
     ![Edit Format Dialog](images/edit-format-dialog.png)
 
 2. Slice object
-3. Select Save to Disk button, or File -> Export, or send job to printer
+3. Select Save DOS Name button
+
+    ![Edit Format Dialog](images/save-dos-button.png)
 
 Besides .gcode, the plugin also works with other file types such as .3mf and .stl. Simply select from the available file
 types in the save dialog. Additionally, GFF+ will pass the custom job name to an OctoPrint server when using the
 [OctoPrint Connection](https://marketplace.ultimaker.com/app/cura/plugins/fieldofview/OctoPrintPlugin) plugin.
 
 ## Format options
+- 8.3.N - DOS 8.3 format file name, [.N] options crop length
 - base_name - object/model name
 - job_name - same as base_name
 - abbr_machine - abbreviated printer machine name
@@ -103,16 +106,14 @@ the option.
 
 #### Example filename format:
 
-    [abbr_machine] [base_name] ext1 [brand1] [material1] [material_print_temperature1]C [line_width1]mm ext2 [brand2] [material2] [material_print_temperature2]C [line_width2]mm
+    [8.3.2][base_name][profile_name][layer_height][material_bed_temperature]
 
 #### Example filename output:
 
-    PI3MK3M paperclip ext1 Ultimaker ABS 255C 0.7mm ext2 Ultimaker Tough PLA 215C 0.35mm.gcode
+    PIFI0465.g
 
 ## Support
-If you find an issue or have any feedback please submit an issue on [GitHub](https://github.com/rgomezjnr/GcodeFilenameFormatPlus/issues).
-
-You can also reachout via Twitter [@rgomezjnr](https://twitter.com/rgomezjnr).
+If you find an issue or have any feedback please submit an issue on [GitHub](https://github.com/imhmao/GcodeFilenameFormatPlus/issues).
 
 If you would like to show your support donations are greatly appeciated via:
 - [GitHub Sponsors](https://github.com/sponsors/rgomezjnr)
@@ -130,11 +131,13 @@ If you would like to show your support donations are greatly appeciated via:
 
 [Geoffrey Young](https://github.com/geoffrey-young)
 
+[imhmao](https://github.com/imhmao)
+
 ## Source code
-https://github.com/rgomezjnr/GcodeFilenameFormatPlus
+https://github.com/imhmao/GcodeFilenameFormatPlus
 
 ## License
-[LGPLv3](https://github.com/rgomezjnr/GcodeFilenameFormat/blob/master/LICENSE)"
+[LGPLv3](https://github.com/imhmao/GcodeFilenameFormat/blob/master/LICENSE)"
         }
     }
 

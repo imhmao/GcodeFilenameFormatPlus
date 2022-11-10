@@ -26,7 +26,7 @@ UM.Dialog
     leftButtons: Cura.SecondaryButton
     {
         text: "Default"
-        onClicked: textfield.text = "[abbr_machine] [base_name] [brand] [material] lw [line_width]mm lh [layer_height]mm if [infill_sparse_density]% ext1 [material_print_temperature]C bed [material_bed_temperature]C"
+        onClicked: textfield.text = "[8.3.2][base_name][profile_name][layer_height][material_bed_temperature]"
     }
 
     rightButtons: Cura.SecondaryButton
