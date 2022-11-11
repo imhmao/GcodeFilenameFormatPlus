@@ -73,9 +73,11 @@ class DosNameOutputDevice(OutputDevice):
 
     def requestWrite(self, nodes, file_name=None, limit_mimetypes=None, file_handler=None, **kwargs):
 
+        fnext = ".g"
+
         application = cast(CuraApplication, Application.getInstance())
         machine_manager = application.getMachineManager()
-        global_stack = machine_manager.activeMachine
+        #global_stack = machine_manager.activeMachine
 
         print_information = application.getPrintInformation()
         job_name = print_information.jobName
@@ -95,7 +97,7 @@ class DosNameOutputDevice(OutputDevice):
         if file_name is None:
             file_name = job_name
 
-        file_name = file_name + ".g"
+        file_name = file_name[0:8] + fnext
 
         if self._writing:
             raise OutputDeviceError.DeviceBusyError()
@@ -106,8 +108,8 @@ class DosNameOutputDevice(OutputDevice):
         file_types = file_handler.getSupportedFileTypesWrite()
         selected_type = None
         for item in file_types:
-            #QMessageBox.information(None,'id',item["id"])
-            #QMessageBox.information(None,'mime_type',item["mime_type"])
+            # QMessageBox.information(None,'id',item["id"])
+            # QMessageBox.information(None,'mime_type',item["mime_type"])
             if item["id"] == 'GCodeWriter':
                 selected_type = item
                 break
@@ -126,7 +128,7 @@ class DosNameOutputDevice(OutputDevice):
         if sys.platform == "linux" and "KDE_FULL_SESSION" in os.environ:
             dialog.setOption(QFileDialog.Option.DontUseNativeDialog)
 
-        filters = ["GCode File (*.g)"]
+        filters = ["GCode File (*"+fnext+")"]
         selected_filter = None
 
         stored_directory = Application.getInstance().getPreferences().getValue(
@@ -148,6 +150,10 @@ class DosNameOutputDevice(OutputDevice):
             "dos_name_output_device/dialog_save_path", save_path)
 
         file_name = dialog.selectedFiles()[0]
+
+        fn = os.path.splitext(os.path.basename(file_name))
+        fn = (fn[0][0:8] + fnext).replace(" ", "")
+        file_name = os.path.join(os.path.dirname(file_name), fn)
 
         #QMessageBox.information(None, 'file_name', file_name)
         if os.path.exists(file_name):
@@ -188,11 +194,9 @@ class DosNameOutputDevice(OutputDevice):
                               0, False, -1, catalog.i18nc("@info:title", "Saving"))
             message.show()
 
-
             job.setMessage(message)
             self._writing = True
             job.start()
-
 
         except PermissionError as e:
             Logger.log(
